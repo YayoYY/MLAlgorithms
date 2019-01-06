@@ -94,9 +94,4 @@ def process(path, skip_rows):
 	del df['native_country']
 	df = pd.concat([df, dummies_native_country], axis=1)
 
-	if skip_rows:
-		df.to_csv('train.csv')
-	else:
-		df.to_csv('test.csv')
-
 	return df
