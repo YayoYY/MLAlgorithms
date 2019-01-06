@@ -19,6 +19,7 @@ class LogisticRegression(object):
         self.w = np.zeros(feature_num).reshape(feature_num,1)
         self.b = 0
         self.alpha = alpha
+        self.T = T
 
     @property
     def model(self):
