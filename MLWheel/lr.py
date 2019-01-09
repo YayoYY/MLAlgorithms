@@ -13,11 +13,11 @@
 
     features: your features' name
     alpha: learning rate, default value:0.01. decrease alpha can avoid overfitting.
-    T:
+    T: iter_num, default value:100
 
 3. use your data fit a model
 
-	>>>
+	>>> 
 
 '''
 
@@ -27,13 +27,13 @@ import numpy as np
 
 class LogisticRegression(object):
     
-    def __init__(self, features, alpha=0.01):
+    def __init__(self, features, alpha=0.01, iter_num=100):
         self.features = features
         feature_num = len(features)
         self.w = np.zeros(feature_num).reshape(feature_num,1)
         self.b = 0
         self.alpha = alpha
-        self.T = T
+        self.iter_num = iter_num
 
     @property
     def model(self):
@@ -67,7 +67,7 @@ class LogisticRegression(object):
 
     def __bgd(self, X, y):
         J = []
-        for i in range(self.T):
+        for i in range(self.iter_num):
             m = len(y)
             y_hat = self.__calc_y(X)
             dz = self.__calc_dz(y, y_hat)
