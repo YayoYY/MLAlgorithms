@@ -3,7 +3,21 @@
 
 '''
 
+1. import "lr" from "MLWheel" module
 
+	>>> from MLWheel import lr
+
+2. initialize a LogisticRegreeession model
+
+	>>> clf = lr.LogisticRegreession(features, alpha, T)
+
+    features: your features' name
+    alpha: learning rate, default value:0.01. decrease alpha can avoid overfitting.
+    T:
+
+3. use your data fit a model
+
+	>>>
 
 '''
 
@@ -13,7 +27,7 @@ import numpy as np
 
 class LogisticRegression(object):
     
-    def __init__(self, features, alpha=0.01, T=10000):
+    def __init__(self, features, alpha=0.01):
         self.features = features
         feature_num = len(features)
         self.w = np.zeros(feature_num).reshape(feature_num,1)
