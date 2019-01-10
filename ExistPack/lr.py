@@ -2,8 +2,6 @@ from sklearn import linear_model
 import sys
 sys.path.append('../')
 from Process import UCIadult_process
-import warnings
-warnings.filterwarnings('ignore')
 
 train = UCIadult_process.process('../data/UCI_adult/adult.data', None)
 test = UCIadult_process.process('../data/UCI_adult/adult.test', [0])
