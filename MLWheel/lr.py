@@ -11,19 +11,42 @@ Logistic Regression with BGD method
 
 2. initialize a LogisticRegreeession model
 
-	>>> clf = lr.LogisticRegreession(features, alpha, max_iter)
+	>>> clf = lr.LogisticRegreession(features, alpha, max_iter, tol)
 
     features : Features' name.
+
     alpha: Learning rate, default value: 0.1. Decrease alpha can avoid overfitting.
+    
     max_iter: Max iteration num, default value: 100. Decrease max_iter can avoid overfitting.
+    
     tol: Tolerance for stopping criteria, default value: 1e-4.
 
-3. use your data fit a model
+3. method
+    
+    (1) use your data fit a model
 
-	>>> clf.fit(X, y)
+    	>>> clf.fit(X, y)
 
-    X is an array of shape (n_samples, n_features)
-    y is an array of shape (n_samples, 1)
+        X is an array of shape (n_samples, n_features)
+        y is an array of shape (n_samples,)
+        return type self (an LogisticRegression instance)
+
+    (2) predict
+
+        >>> clf.predict(X)
+
+        X is an array of shape (n_samples, n_features)
+        return type is an array of shape (n_samples,)
+
+4. attributes
+
+    features_: dict, [featurename : weight]
+
+    coef_: weight
+
+    iter_num_: iteration number
+
+    classes_: total classes' number
 
 '''
 
