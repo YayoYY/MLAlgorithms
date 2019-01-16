@@ -56,7 +56,7 @@ import numpy as np
 
 class LogisticRegression(object):
 
-    def __init__(self, features, alpha=1, max_iter=100, tol=1e-4):
+    def __init__(self, features, alpha=0.1, max_iter=100, tol=1e-4):
         self.__features = features
         feature_num = len(features)
         self.__w = np.zeros(feature_num)
