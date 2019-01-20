@@ -78,7 +78,7 @@ class Perceptron():
 			time1 = time.time()
 			result = func(*args, **kw)
 			time2 = time.time()
-			print(func, 'COST', time2-time1)
+			# print(func, 'COST', time2-time1)
 			return result
 		return wrapper
 
