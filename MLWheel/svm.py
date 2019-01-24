@@ -45,14 +45,23 @@ Perceptron with SGD method
         return type is an array of shape (n_samples,)
 
 4. attributes
+	
+	features_: Only linear kernel has this attribute. Dict type. [feature: coef]
 
-    
+	support_: Index of support vectors.
+
+	support_vectors_: DataFrame of support vectors.
+
+	params_: Params of the model.
+
+    iter_num_: iteration number
 
 '''
 
 __author__ = 'YayoYY'
 
 import numpy as np
+import pandas as pd
 
 class SVM():
 
@@ -70,13 +79,13 @@ class SVM():
 	@property
 	def features_(self):
 		if self.__kernel == 'linear':
-			return [feature + ': ' +  coef for feature,coef in zip(self.__features, self.__coef)]
+			return [str(feature) + ': ' +  str(coef) for feature,coef in zip(self.__features, self.__coef)]
 		else:
-			return 'Only linear kernel can output coef_'
+			return 'Error: Only linear kernel can output coef_'
 
 	@property
 	def support_(self):
-		return np.where(self.__alpha[self.__alpha == self.__C])[0]
+		return self.__support
 
 	@property
 	def n_support_(self):
@@ -84,17 +93,17 @@ class SVM():
 
 	@property
 	def support_vectors_(self):
-		return self.__X[self.support_,:]
+		sv = pd.DataFrame(self.__X[:,self.__support].T, columns=self.__features, index=self.__support)
+		return sv
 
 	@property
-	def get_params_(self):
+	def params_(self):
 		return self.__params
 
 	@property
 	def iter_num_(self):
 		return self.__iter_num
 	
-
 	def fit(self, X, y):
 		self.__X = X.T
 		self.__y = y
@@ -152,7 +161,12 @@ class SVM():
 			else:
 				self.__b = (b1_new + b2_new)/2
 			self.__iter_num = self.__iter_num + 1
-		self.__coef = np.dot((self.__alpha * self.__y).reshape(1, len(self.__y)), self.__X.T).reshape((self.__X.shape[0]))
+		self.__coef = np.dot((self.__alpha * self.__y).reshape(1, len(self.__y)), self.__X.T).reshape((self.__X.shape[0],))
+		self.__support = np.where(self.__alpha == self.__C)[0]
+		self.__n_support = {}
+		self.__n_support['+1'] = np.sum(self.__y[self.__support] == 1)
+		self.__n_support['-1'] = np.sum(self.__y[self.__support] == -1)
+
 
 	def __calc_E(self):
 		return self.__calc_g(self.__Gram) - self.__y
@@ -161,12 +175,15 @@ class SVM():
 		return (np.dot((self.__alpha * self.__y).reshape(1, len(self.__y)), Gram) + self.__b).reshape((Gram.shape[1],))
 
 	def __calc_Gram(self, X1, X2):
+		Gram = np.zeros((X1.shape[1], X2.shape[1]))
 		if self.__kernel == 'rbf':
-			pass
+			for i in range(X1.shape[0]):
+				Gram[i, :] = np.exp(self.__gamma * np.linalg.norm(X1[:,i].reshape((len(X1[:,i]),1)) - X2, keepdims=True, axis=0, ord=2))
+			return Gram
 		elif self.__kernel == 'poly':
-			pass
+			return np.power(self.__gamma * np.dot(X1.T, X2) + self.__coef0, self.__degree)
 		elif self.__kernel == 'sigmoid':
-			pass
+			return np.tanh(self.__gamma * np.dot(X1.T, X2) + self.__coef0)
 		else:
 			return np.dot(X1.T, X2)
 	
