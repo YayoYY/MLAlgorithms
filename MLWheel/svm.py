@@ -3,7 +3,7 @@
 
 '''
 
-Perceptron with SGD method
+Support Vector Machine with SMO method
 
 1. import "svm" from "MLWheel" module
 
