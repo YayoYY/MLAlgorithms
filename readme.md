@@ -1,25 +1,14 @@
-# 目录结构
+# 实现机器学习算法
 
-- MLPrac/
+为了能够掌握常用机器学习算法的内部原理，更好地理解每一种算法的特性，打算将它们全部手动实现一遍。
 
-	- readme.py
-	
-	- test.ipynb
-	
-	- data/
-	
-		- UCI_adult
-	
-	---
-	
-	- [ExistPack/](https://github.com/YayoYY/MLPrac/tree/master/ExistPack)
+- ✅逻辑回归
+- ✅svm
+- ✅感知机
 
-		sklearn等第三方库的练习。
-	
-	- [MLWheel/](https://github.com/YayoYY/MLPrac/tree/master/MLWheel)
+ps. 文件说明：
 
-		机器学习算法实现。
-	
-	- [Process/](https://github.com/YayoYY/MLPrac/tree/master/Process)
-
-		一些数据集的处理代码。
+- test.ipynb：用于测试
+- data：数据集文件夹
+- mlearn：算法模块
+- process：数据集处理模块
